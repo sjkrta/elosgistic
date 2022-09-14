@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block root %}
+{% include "includes/navbar.html" %}
+{% include "includes/navbarSearchModal.html" %}
+{% block outlet %}
+
+<div class="container bg-white mt-5 rounded pt-5" style="min-height:100vh;">
+    <div class="row mx-5" style="height:400px;">
+        <div class="col-7 " style="overflow: hidden;" >
+            <img style="object-fit: cover; height: 400px;" src="https://images.unsplash.com/photo-1494412519320-aa613dfb7738?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" />
+        </div>
+        <div class="col-5 p-3">
+            <h3 class="text-center" style="font-weight:bold ;">About Us</h3>
+            <p style="text-align:justify ;">Founded in August 2022, based in Sydney, Australia, at ESTORAGE, we pride ourselves on our capacity to provide shippers, both substantial and little, with arrangement administration intended to deal with their complex and regularly changing supply change. Utilizing our worldwide transportation, our administrations are intended to transport and oversee stock as per your business necessities while accomplishing the speed, exactness, and adaptability required in the present unique supply chains. At ESTORAGE, Logistics, the client is our best need and guarantees you get the transportation the executives that are appropriate for you.
+
+                ‘On Time, On Task. On the Move’</p>
+        </div>
+    </div>
+    <div class="mt-5 d-flex flex-column">
+        <h1 class="m-auto">We are best in the town.</h1><br/>
+        <h2 class="m-auto">Deal with us to grow your business to next level</h2>
+    </div>
+</div>
+
+{% endblock outlet %}
+{% include "includes/footer.html" %}
+{% endblock root %} 

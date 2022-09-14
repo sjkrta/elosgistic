@@ -20,7 +20,9 @@ urlpatterns = [
     path('profile/<str:username>/', views.profile_view, name='profile'),
     path('cost/calculator/', views.cost_calculator_view, name ='cost_calculator'),
     path('tracking/', views.tracking, name ='tracking'),
-    path('shipping/', views.shipping, name = 'shipping')
+    path('shipping/', views.shipping, name = 'shipping'),
+    path('thankyou/', views.thankyou, name = 'thankyou'),
+    path('aboutus/', views.aboutus, name = 'aboutus'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

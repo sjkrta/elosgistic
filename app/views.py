@@ -216,11 +216,18 @@ def shipping(request):
         form = ShippingDetailsForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect("/thankyou")
         else:
             print('Something went wrong')
     return render(request, 'pages/shipping.html', {
         'form':form
     })
+
+def thankyou(request):
+    return render(request, "pages/thankyou.html")
+
+def aboutus(request):
+    return render(request, "pages/aboutus.html")
 
 def category_view(request, category):
     context = {}
