@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block root %}
+{% include "includes/navbar.html" %}
+{% include "includes/navbarSearchModal.html" %}
+{% block outlet %}{% endblock outlet %}
+{% include "includes/footerSearch.html" %}
+{% include "includes/footer.html" %}
+{% endblock root %}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block root %}
+{% include "includes/navbar.html" %}
+{% include "includes/navbarSearchModal.html" %}
+{% block outlet %}
+
+<div class="container bg-white p-lg-5 mt-5">
+    <h2 class="text-center text-secondary">Welcome to Shipping Service</h2>
+    <p class="text-center">To ship your package, you are first supposed to fill up the given form and proceed checkout</p>
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <form class="container p-3 bg-white" method="post">
+            {% csrf_token %}
+            <h2 class="text-center text-secondary">Sender Details</h2>
+            <div class="row">
+                <div class="form-group col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Full Name</label>
+                    <input type="text" value="" name="sender_fullname" id="formGroupExampleInput"class="form-control" placeholder="Enter your full name">
+                </div>
+                <div class="col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Email Address</label>
+                    <input type="email" value="" name="sender_email" class="form-control" placeholder="Enter email address">
+                </div>
+            </div>
+            <div class="form-group col">
+                <label class="pt-3 px-2" for="formGroupExampleInput">Full Address</label>
+                <input type="text" value="" name="sender_address" id="formGroupExampleInput"class="form-control" placeholder="Street, City, Country">
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Phone Number</label>
+                    <input type="tel" value=""  id="formGroupExampleInput"class="form-control" placeholder="Enter your phone number" name="sender_phone">
+                </div>
+                <div class="col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Date</label>
+                    <input type="date" value="" class="form-control" placeholder="Enter Date" name="date">
+                </div>
+            </div>
+
+
+            <!-- product detail -->
+
+            <h2 class="text-center text-secondary mt-4">Package Details</h2>
+            <div class="row">
+                <div class="form-group col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Product Category</label>
+                    <input type="text" value="" name="category" id="formGroupExampleInput"class="form-control" placeholder="Enter the name of the product">
+                </div>
+                <div class="col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Package Quantity</label>
+                    <input type="number" value="" name="package_quantity" class="form-control" placeholder="Enter package quantity">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Package Weight (in KG)</label>
+                    <input type="number" value="" name="package_weight" id="formGroupExampleInput"class="form-control" placeholder="Enter the package weight in Kg">
+                </div>
+                <div class="col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Approximate Distance</label>
+                    <input type="number" value="" name="approximate_distance" class="form-control" placeholder="Enter approximate distance of package travel">
+                </div>
+            </div>
+
+            <!-- Receiver detail -->
+
+            <h2 class="text-center text-secondary mt-4">Receiver Details</h2>
+            <div class="row">
+                <div class="form-group col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">FullName</label>
+                    <input type="text" value="" name="receiver_fullname" id="formGroupExampleInput"class="form-control" placeholder="Enter the Receiver FullName">
+                </div>
+                <div class="col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Email Address</label>
+                    <input type="email" value="" name="receiver_email" class="form-control" placeholder="Enter Receiver Email Address">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Full Address</label>
+                    <input type="text" value="" name="full_address_receiver" id="formGroupExampleInput"class="form-control" placeholder="Enter the Full Address of Receiver">
+                </div>
+                <div class="col">
+                    <label class="pt-3 px-2" for="formGroupExampleInput">Phone Number</label>
+                    <input type="tel" value="" name="receiver_phone" class="form-control" placeholder="Enter the Receiver Phone Number">
+                </div>
+            </div>
+
+            <div class="row p-10">
+                <button type="submit"  class="btn btn-secondary btn-lg btn-block mt-4">Submit Your Order</button>
+            </div>
+        </form> 
+    </div>
+</div>
+
+{% endblock outlet %}
+{% include "includes/footer.html" %}
+{% endblock root %} 

@@ -1,0 +1,28 @@
+<div class="profile-tab-address-detail">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Username</th>
+                <td>{{ request.user.username }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Email</th>
+                <td>{{ request.user.email }}</td>
+            </tr>
+            <tr class="button-container">
+                <td colspan="2"><button>Edit User Details</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Password</th>
+                <td>Sensitive information cannot be shown here.</td>
+            </tr>
+            <tr class="button-container">
+                <td colspan="2"><button>Change Password</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

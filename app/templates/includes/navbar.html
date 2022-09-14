@@ -1,0 +1,89 @@
+<nav id="navbar" class="navbar-expand-md sticky-top">
+    <div class="flex-space-between">
+        <a class="navbar-brand" href={% url 'home' %}>e-LOGISTIC</a>
+        <div class="flex nav-right">
+            <span class="nav-search"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="26"
+                     height="26"
+                     fill="currentColor"
+                     class="bi bi-search"
+                     viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </span>
+            <!-- <a href={% url 'cart' %}>
+                <span class="nav-cart">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="32"
+                         height="32"
+                         fill="currentColor"
+                         class="bi bi-cart2"
+                         viewBox="0 0 16 16">
+                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                    </svg>
+                </span>
+                <span class="nav-badge">{{ cart_length }}</span>
+            </a> -->
+            <div class="btn nav-profile">
+                <span class="nav-profile dropdown-toggle"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                   {% if request.user.is_authenticated %}
+                   <img src="{{ request.user.image.url }}" alt="{{ request.user.username }}"/>
+                   {% else %}
+                   <img src="{{ defaultProfileImage }}" alt="AnonymousUser"/>
+                   {% endif %}
+                    <span class="nav-greet-user">
+                        {% if request.user.is_authenticated %}
+                            {{ request.user.first_name }}
+                        {% else %}
+                            Login
+                        {% endif %}
+                    </span>
+                </span>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <a class="dropdown-item see-profile" href={% if request.user.is_authenticated %}{% url 'profile' request.user.username %}{% else %}{% url 'login' %}{% endif %}><img src="{{ request.user.image.url }}" alt="{{ request.user.username }}"/><div class="name">{{request.user.username}}</div></a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href={% url 'logout' %}>Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a class="dropdown-item" href={% url 'login' %}>Login</a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href={% url 'register' %}>Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <button class="navbar-toggler border-0 p-0 shadow-none"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <div id="nav-btn" onclick="myFunction()">
+                    <div class="nav-bar"></div>
+                    <div class="nav-bar"></div>
+                    <div class="nav-bar"></div>
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="d-flex flex-md-row flex-column nav-items-container">{% include 'includes/navbarLinks.html' %}</div>
+    </div>
+</nav>

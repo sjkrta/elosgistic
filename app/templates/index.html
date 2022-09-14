@@ -1,0 +1,13 @@
+{% extends "home.html" %}
+{% block title %}Homepage{% endblock title %}
+{% block outlet %}
+{% include "includes/carousel.html" %}
+<div class="container bg-white p-lg-5 mt-5">
+    <div class="d-flex justify-content-evenly flex-row flex-wrap">
+        <div class="col-5 shadow p-3 mb-5 bg-white rounded " style="height: 350px;"></div>
+        <div class="col-5 shadow p-3 mb-5 bg-white rounded" style="height: 350px;"></div>
+        <div class="col-5 shadow p-3 mb-5 bg-white rounded mt-5" style="height: 350px;"></div>
+        <div class="col-5 shadow p-3 mb-5 bg-white rounded mt-5" style="height: 350px;"></div>
+    </div>
+</div>
+{% endblock outlet %}

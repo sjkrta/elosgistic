@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %} Register {% endblock title %} 
+{% block root %}
+{% include "includes/navbar2.html" %}
+<form id="account" method="post">
+    {% csrf_token %}
+  <h1 id="form-title">Sign Up</h1>
+  <div id="names">
+    <input
+      id="first_name"
+      type="text"
+      name="first_name"
+      placeholder="First name"
+      value="{{formValues.first_name}}"
+    />
+    <input
+      id="last_name"
+      type="text"
+      name="last_name"
+      placeholder="Last name"
+      value="{{formValues.last_name}}"
+    />
+  </div>
+  <div class="error">{{formErrors.names}}{{formErrors.first_name}}{{formErrors.last_name}}</div>
+  <input type="email" name="email" placeholder="Email address" value="{{formValues.email}}"/>
+  <div class="error">{{formErrors.email}}</div>
+  <input type="text" name="username" placeholder="Username" value="{{formValues.username}}"/>
+  <div class="error">{{formErrors.username}}</div>
+  <div id="passwords">
+    <input
+      type="password"
+      name="password"
+      placeholder="Password"
+      id="password"
+      value="{{formValues.password}}"
+    />
+    <input
+      type="password"
+      name="password2"
+      placeholder="Confirm Password"
+      id="password2"
+      value="{{formValues.password2}}"
+    />
+  </div>
+  <div class="error">{{formErrors.password}}{{formErrors.password2}}</div>
+  <label for="day">Date of birth :</label>
+  <div id="date_of_birth">
+    <select id="day" name="day">
+        {% for i in day %}
+        <option value={{i}} {% if formValues.day == i %}selected{% endif %}>{{i}}</option>
+        {% endfor %}
+    </select>
+    <select id="month" name="month">
+        {% for i in month %}
+        <option value={{forloop.counter}} {% if formValues.month == forloop.counter %}selected{% endif %}>{{i}}</option>
+        {% endfor %}
+    </select>
+    <select id="year" name="year">
+        {% for i in year %}
+        <option value={{i}} {% if formValues.year == i %}selected{% endif %}>{{i}}</option>
+        {% endfor %}
+    </select>
+  </div>
+  <div class="error">{{formErrors.date_of_birth}}</div>
+  <label for="male">Gender :</label>
+  <div id="gender">
+      {% for i in gender %}
+        <div>
+            <label for={{i.name}}>{{i.name}}</label>
+            <input type="radio" id="{{i.name}}" name="gender" value={{i.id}} {% if i.id == formValues.gender %}checked{% endif %}/>
+        </div>
+      {% endfor %}
+  </div>
+  <div class="error">{{formErrors.gender}}</div>
+  <button id="register" type="submit">Register</button>
+  <div id="form-info-container">
+    Already have an account? <a href="{% url 'login' %}">Login here.</a>
+  </div>
+</form>
+{% endblock root %}

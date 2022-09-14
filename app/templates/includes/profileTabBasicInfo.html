@@ -1,0 +1,25 @@
+<div class="profile-tab-basic-info">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Firstname</th>
+                <td>{{ request.user.first_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Lastname</th>
+                <td>{{ request.user.last_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Date of birth</th>
+                <td>{{ request.user.date_of_birth }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Gender</th>
+                <td>{{ request.user.gender }}</td>
+            </tr>
+            <tr class="button-container">
+                <td colspan="2"><button>Edit Basic Info</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

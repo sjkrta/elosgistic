@@ -1,0 +1,47 @@
+<div id="carouselExampleInterval"
+     class="carousel slide carousel-dark"
+     data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        {% for i in Carousel %}
+        <button type="button"
+                data-bs-target="#carouselExampleInterval"
+                data-bs-slide-to={{forloop.counter|add:"-1"}}
+                {% if forloop.counter == 1 %}
+                class="active"
+                aria-current="true"
+                {% endif %}
+                aria-label="Slide {{forloop.counter}}">
+            </button>
+    {% endfor %}
+    </div>
+    <div class="carousel-inner">
+        {% for i in Carousel %}
+            <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}"
+                 data-bs-interval="3000">
+                <div class="row" style="background:{{ i.bg_color }}">
+                    <div class="img-container col-12 col-md-6">
+                        <img src={{ i.image.url }} alt={{ i.title }}/>
+                    </div>
+                    <div class="info-container col-12 col-md-6">
+                        <h1>{{ i.title }}</h1>
+                        <p>{{ i.description }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleInterval"
+            data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden text-dark">Previous</span>
+    </button>
+    <button class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleInterval"
+            data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

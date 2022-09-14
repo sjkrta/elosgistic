@@ -1,0 +1,43 @@
+
+{% extends 'base.html' %}
+{% block root %}
+{% include "includes/navbar.html" %}
+{% include "includes/navbarSearchModal.html" %}
+{% block outlet %}
+    <form class="container w-50 mt-5 p-3 bg-white" method="post">
+        {% csrf_token %}
+        <h2 class="text-center text-secondary">Cost Estimator</h2>
+        <div class="row">
+            <div class="form-group col">
+                <label class="pt-3 px-2" for="formGroupExampleInput">From</label>
+                <input type="text" value="{{ values.0 }}" name="pick" id="formGroupExampleInput"class="form-control" placeholder="Pick Up Address">
+            </div>
+            <div class="col">
+                <label class="pt-3 px-2" for="formGroupExampleInput">To</label>
+                <input type="text" value="{{ values.1 }}" name="delivery" class="form-control" placeholder="Delivery Address">
+            </div>
+        </div>
+        <div class="form-group col">
+            <label class="pt-3 px-2" for="formGroupExampleInput">Logistic Service (Road, Air, Water)</label>
+            <input type="text" value="{{ values.2 }}" name="medium" id="formGroupExampleInput"class="form-control" placeholder="Pick Up Address">
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label class="pt-3 px-2" for="formGroupExampleInput">Weight in Kg</label>
+                <input type="number" value="{{ values.3 }}"  id="formGroupExampleInput"class="form-control" placeholder="Enter the weight" name="weight">
+            </div>
+            <div class="col">
+                <label class="pt-3 px-2" for="formGroupExampleInput">Approximate Distance in Km</label>
+                <input type="number" value="{{ values.4 }}" class="form-control" placeholder="Enter the Approximate Distance" name="distance">
+            </div>
+        </div>
+        <div class="row p-10">
+            <button type="submit"  class="btn btn-secondary btn-lg btn-block mt-4">Estimate Cost</button>
+        </div>
+        <div class="row m-10">
+            <h4 class="pt-3">Estimate cost is {{ values.5 }} dollar.</h4>
+        </div>
+    </form> 
+{% endblock outlet %}
+{% include "includes/footer.html" %}
+{% endblock root %} 

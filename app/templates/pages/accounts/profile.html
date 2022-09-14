@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ request.user.username }}
+{% endblock title %}
+{% block root %}
+    {% include "includes/navbar.html" %}
+    {% include "includes/navbarSearchModal.html" %}
+    {% block outlet %}
+        <div class="container-wrapper">
+            <div class="profile-container">
+                <img src={{ request.user.image.url }} alt={{ request.user.username }} class="profile-image"/>
+                <button class="change_profile_pic">Change Profile Picture</button>
+            <hr/>
+                <div class="nav nav-pills"
+                     id="v-pills-tab"
+                     role="tablist"
+                     aria-orientation="vertical">
+                    {% for i in sidebar %}
+                        <div class="nav-link {% if forloop.counter == 1 %}active{% endif %}"
+                             id="v-pills-{{ i.id }}-tab"
+                             data-bs-toggle="pill"
+                             data-bs-target="#v-pills-{{ i.id }}"
+                             role="tab"
+                             aria-controls="v-pills-{{ i.id }}"
+                             aria-selected="{% if forloop.counter == 1 %}true{% else %}false{% endif %}">
+                            {{ i.name }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="tab-content" id="v-pills-tabContent">
+                    {% for i in sidebar %}
+                        <div class="tab-pane fade {% if forloop.counter == 1 %}show active{% endif %}"
+                             id="v-pills-{{ i.id }}"
+                             role="tabpanel"
+                             aria-labelledby="v-pills-{{ i.id }}-tab">
+                            {% include i.template %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endblock outlet %}
+    {% include "includes/footer.html" %}
+{% endblock root %}
