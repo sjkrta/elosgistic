@@ -7,8 +7,15 @@
     {% if request.user.is_authenticated %}
         <form method="post" style="margin:auto;" class="d-flex flex-wrap flex-column">
             {% csrf_token %}
+            <input type="text" class="form-control" name="tracking-number" id="tracking-number" placeholder="Enter tracking number">
+            </br>
             <button type="submit" class="btn btn-lg btn-warning" style="width:300px; margin:auto">Track Your Order</button>
-            <h2 class="bg-white p-3 rounded mt-3">{{ msg }}</h2>
+            </br>
+            {% if msg %}
+            <div class="alert alert-primary" role="alert">
+                {{msg}}
+            </div>
+            {% endif %}
         </form>
     {% else %}
         <a type="button" href={% url 'register' %} class="btn btn-lg btn-warning" style="width:300px; margin:auto">Sign Up First</a>

@@ -104,7 +104,7 @@ class Carousel(models.Model):
 
 
 class Address(models.Model):
-    user_id = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(Account, on_delete=models.CASCADE, null=True, blank=True)
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
     zip_code = models.IntegerField()
@@ -123,8 +123,10 @@ class Address(models.Model):
         verbose_name_plural = "Addresses"
 
     def __str__(self):
-        return self.user_id.username
-
+        response = ''
+        if self.user_id:
+            response = f'{self.user_id.first_name} {self.user_id.last_name}  ({self.user_id.username}) - '
+        return f'{response}{self.street}, {self.city}, {self.zip_code}, {self.state}'
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -229,4 +231,23 @@ class ShippingDetails(models.Model):
 
     def __str__(self):
         return str(self.id)
+    
 
+
+class TrackingNumber(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    tracking_number = models.CharField(max_length=12, unique=True)
+    STATUS = [
+        ('Item is ready to be dispatched.', 'Item is ready to be dispatched.'),
+        ('Carrier picked up the package.', 'Carrier picked up the package.'),
+        ('Package arrived at a carrier facility.', 'Package arrived at a carrier facility.'),
+        ('Out for delivery.', 'Out for delivery.'),
+        ('Carrier is unable to gain access to the front door. Please contact Estorage to provide additional information', 'Carrier is unable to gain access to the front door. Please contact Estorage to provide additional information'),
+        ('Carrier delivered the package.', 'Carrier delivered the package.'),
+    ]
+    status = models.CharField(max_length=255, choices=STATUS, default=STATUS[0])
+
+
+    # def __str__(self):
+    #     return str(self.tracking_number)
