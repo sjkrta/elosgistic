@@ -237,7 +237,7 @@ class SupportQuery(models.Model):
     lastname = models.CharField(max_length=60)
     phone = models.DecimalField(max_digits=10, decimal_places=2)
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    message = models.CharField(max_length=60)
+    message = models.TextField(max_length=60)
     
     def __str__(self):
         return str(self.id)
