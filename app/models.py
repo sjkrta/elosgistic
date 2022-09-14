@@ -239,14 +239,14 @@ class TrackingNumber(models.Model):
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     tracking_number = models.CharField(max_length=12, unique=True)
     STATUS = [
-        ('R', 'Item is ready to be dispatched.'),
-        ('P', 'Carrier picked up the package.'),
-        ('D', 'Package arrived at a carrier facility.'),
-        ('O', 'Out for delivery.'),
-        ('U', 'Carrier is unable to gain access to the front door. Please contact Estorage to provide additional information'),
-        ('D', 'Carrier delivered the package.'),
+        ('Item is ready to be dispatched.', 'Item is ready to be dispatched.'),
+        ('Carrier picked up the package.', 'Carrier picked up the package.'),
+        ('Package arrived at a carrier facility.', 'Package arrived at a carrier facility.'),
+        ('Out for delivery.', 'Out for delivery.'),
+        ('Carrier is unable to gain access to the front door. Please contact Estorage to provide additional information', 'Carrier is unable to gain access to the front door. Please contact Estorage to provide additional information'),
+        ('Carrier delivered the package.', 'Carrier delivered the package.'),
     ]
-    status = models.CharField(max_length=1, choices=STATUS, default='R')
+    status = models.CharField(max_length=255, choices=STATUS, default=STATUS[0])
 
 
     # def __str__(self):

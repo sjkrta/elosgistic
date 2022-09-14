@@ -3,7 +3,7 @@ from distutils.log import error
 import random
 from unicodedata import decimal
 from django.shortcuts import redirect, render
-from app.models import Account, Carousel, Category, Coupon, Order, OrderItem, Product, ProductImage, Address, ShippingDetails
+from app.models import Account, Carousel, Category, Coupon, Order, OrderItem, Product, ProductImage, Address, ShippingDetails, TrackingNumber
 from django.contrib.auth import authenticate, login, logout
 defaultProductImage = "/media/categories/products/default.png"
 
@@ -196,17 +196,18 @@ def categories_view(request):
     return render(request, 'pages/products/categories.html', context)
 
 def tracking(request):
-    locations = ['Sydney', 'Melbourne', 'Adelaide', 'Perth', 'Wollongong', 'Sunshine coast','Darwin', 'Hobart', 'Tasmania', 'Geelong']
-    msg = ''
-    try:
-        if request.method == "POST":
-            randnum = (random.randint(0,9))
-            msg = "Your package has reached " + locations[randnum]
-    except:
-        msg = "invalid"
-
-    print(msg)
-    return render(request, 'pages/tracking.html',{'msg': msg})
+    msg = None
+    if request.method == "POST":
+        tracking_number = request.POST['tracking-number']
+        if tracking_number == '':
+            msg = "Please enter your tracking number first."
+        else:
+            tracked_item = TrackingNumber.objects.filter(tracking_number = tracking_number).first()
+            if tracked_item:
+                msg = tracked_item.status
+            else:
+                msg = "This tracking is either invalid or not yet added to the system."
+    return render(request, 'pages/tracking.html', {'msg': msg})
 
 def shipping(request):
     msg = ""
