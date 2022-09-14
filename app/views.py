@@ -215,9 +215,9 @@ def shipping(request):
     if request.method == 'POST':
         form = ShippingDetailsForm(request.POST)
         if form.is_valid():
-            print('valid')
+            form.save()
         else:
-            print('error')
+            print('Something went wrong')
     return render(request, 'pages/shipping.html', {
         'form':form
     })
