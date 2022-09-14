@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Account, Address, Carousel, Category, Product, ProductImage, Review, Order, OrderItem, Coupon
+from .models import Account, Address, Carousel, Category, Product, ProductImage, Review, Order, OrderItem, Coupon, TrackingNumber
 from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
@@ -21,6 +21,11 @@ class OrderAdmin(admin.ModelAdmin):
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ('product_id','price','quantity','created_at')
     readonly_fields = ('created_at',)
+
+@admin.register(TrackingNumber)
+class TrackingNumberAdmin(admin.ModelAdmin):
+    list_display = ('tracking_number','status','user', 'address',)
+    readonly_fields = ()
 
 @admin.register(Account)
 class AccountAdmin(UserAdmin):
