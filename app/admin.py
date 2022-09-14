@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Account, Address, Carousel, Category, Product, ProductImage, Review, Order, OrderItem, Coupon, ShippingDetails, TrackingNumber
+from .models import Account, Address, Carousel, Category, Product, ProductImage, Review, Order, OrderItem, Coupon, ShippingDetails, TrackingNumber, SupportQuery
 from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
@@ -15,6 +15,10 @@ admin.site.register(Coupon)
 class ShippingDetailsAdmin(admin.ModelAdmin):
     list_display = ('sender_fullname','sender_address', 'receiver_fullname','receiver_address','date')
     ordering = ('date',)
+
+@admin.register(SupportQuery)
+class SupportQueryAdmin(admin.ModelAdmin):
+    list_display = ('firstname','lastname', 'email','phone','message')
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):

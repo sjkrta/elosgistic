@@ -232,7 +232,15 @@ class ShippingDetails(models.Model):
     def __str__(self):
         return str(self.id)
     
-
+class SupportQuery(models.Model):
+    firstname = models.CharField(max_length=60)
+    lastname = models.CharField(max_length=60)
+    phone = models.DecimalField(max_digits=10, decimal_places=2)
+    email = models.EmailField(verbose_name="email", max_length=60, unique=True)
+    message = models.CharField(max_length=60)
+    
+    def __str__(self):
+        return str(self.id)
 
 class TrackingNumber(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)

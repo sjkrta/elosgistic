@@ -3,7 +3,7 @@ from distutils.log import error
 import random
 from unicodedata import decimal
 from django.shortcuts import redirect, render
-from app.forms import ShippingDetailsForm
+from app.forms import ShippingDetailsForm, SupportQueryForm
 from app.models import Account, Carousel, Category, Coupon, Order, OrderItem, Product, ProductImage, Address, ShippingDetails, TrackingNumber
 from django.contrib.auth import authenticate, login, logout
 defaultProductImage = "/media/categories/products/default.png"
@@ -228,6 +228,20 @@ def thankyou(request):
 
 def aboutus(request):
     return render(request, "pages/aboutus.html")
+
+def support(request):
+    form = SupportQueryForm()
+    if request.method == 'POST':
+        form = SupportQueryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/support/thankyou")
+        else:
+            print('Something went wrong')
+    return render(request, "pages/support.html",{'form':form})
+
+def thankyouSupport(request):
+    return render(request, "pages/support_thankyou.html")
 
 def category_view(request, category):
     context = {}

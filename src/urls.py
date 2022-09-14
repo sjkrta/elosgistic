@@ -23,6 +23,8 @@ urlpatterns = [
     path('shipping/', views.shipping, name = 'shipping'),
     path('thankyou/', views.thankyou, name = 'thankyou'),
     path('aboutus/', views.aboutus, name = 'aboutus'),
+    path('support/', views.support, name = 'support'),
+    path('support/thankyou/', views.thankyouSupport, name = 'thankyou_support'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
