@@ -3,6 +3,7 @@ from distutils.log import error
 import random
 from unicodedata import decimal
 from django.shortcuts import redirect, render
+from app.forms import ShippingDetailsForm
 from app.models import Account, Carousel, Category, Coupon, Order, OrderItem, Product, ProductImage, Address, ShippingDetails, TrackingNumber
 from django.contrib.auth import authenticate, login, logout
 defaultProductImage = "/media/categories/products/default.png"
@@ -210,45 +211,16 @@ def tracking(request):
     return render(request, 'pages/tracking.html', {'msg': msg})
 
 def shipping(request):
-    msg = ""
-    try:
-        if request.method == "POST":
-            sender_fullname = request.POST.get("sender_fullname")
-            sender_address = request.POST.get("sender_address")
-            sender_email = request.POST.get("sender_email")
-            sender_phone = request.POST.get("sender_phone")
-            date = request.POST.get("date")
-            package_detail = request.POST.get("category")
-            package_quantity = request.POST.get("package_quantity")
-            package_weight = request.POST.get("package_weight")
-            approximate_distance = request.POST.get("approximate_distance")
-            receiver_fullname = request.POST.get("receiver_fullname")
-            receiver_address = request.POST.get("full_address_receiver")
-            receiver_email = request.POST.get("receiver_email")
-            receiver_phone = request.POST.get("receiver_phone")
-
-            shipping = ShippingDetails(
-                sender_fullname=sender_fullname,
-                sender_address=sender_address,
-                sender_email=sender_email,
-                sender_phone=sender_phone,
-                date=date,
-                package_detail=package_detail,
-                package_quantity=package_quantity,
-                package_weight=package_weight,
-                approximate_distance=approximate_distance,
-                receiver_fullname=receiver_fullname,
-                receiver_address=receiver_address,
-                receiver_email=receiver_email,
-                receiver_phone=receiver_phone
-            )
-            shipping.save()
-            msg = "success"
-    except:
-        msg=  "error"
-
-    print(msg)
-    return render(request, 'pages/shipping.html')
+    form = ShippingDetailsForm()
+    if request.method == 'POST':
+        form = ShippingDetailsForm(request.POST)
+        if form.is_valid():
+            print('valid')
+        else:
+            print('error')
+    return render(request, 'pages/shipping.html', {
+        'form':form
+    })
 
 def category_view(request, category):
     context = {}
