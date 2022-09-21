@@ -2,7 +2,7 @@
 
 $primary: #800080;
 $primary-hover: #660066;
-$seconday: #666666;
+$secondary: #666666;
 $secondary-hover: #4d4d4d;
 $light: white;
 $lemon: rgb(255, 166, 0);
@@ -11,6 +11,7 @@ $success: #00ff00;
 $link: #0000ff;
 $dark: #000000;
 $background-color: #ededed;
+$gray: #9b9b9b;
 
 html,
 *,
@@ -81,7 +82,7 @@ form#account>input,
   font-size: 1.1rem;
   border-radius: 5px;
   border: none;
-  outline: 1.5px solid $seconday;
+  outline: 1.5px solid $secondary;
 }
 
 #gender {
@@ -95,7 +96,7 @@ form#account>input,
     grid-template-columns: auto max-content;
     font-size: 1.1rem;
     background-color: $light;
-    outline: 1.5px solid $seconday;
+    outline: 1.5px solid $secondary;
     border-radius: 5px;
     align-items: center;
 
@@ -119,7 +120,7 @@ form#account>input,
 
   select {
     border: none;
-    outline: 1.5px solid $seconday;
+    outline: 1.5px solid $secondary;
     font-size: 1.1rem;
     border-radius: 5px;
     padding: 0.5rem;
@@ -1180,4 +1181,104 @@ tr {
   letter-spacing: 1px;
   font-weight: bold;
   cursor: pointer;
+}
+
+// form --------------------------------------------------------------------------
+
+#form{
+  p{
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+  }
+  label{
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $gray;
+  }
+  input,textarea{
+    margin-top: .5rem;
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid $gray;
+    outline: 0;
+    color: $secondary-hover;
+    padding: 7px 0;
+    background: #ededed;
+    transition: border-color 0.2s;
+    border-radius: 7px 0;
+  
+    &::placeholder {
+      color: transparent;
+    }
+  
+    &:placeholder-shown ~ .form__label {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 20px;
+    }
+  }
+  input:focus,textarea:focus {
+    ~ .form__label {
+      position: absolute;
+      top: 0;
+      display: block;
+      transition: 0.2s;
+      font-size: 1rem;
+      color: $primary;
+      font-weight:700;    
+    }
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, $primary,$secondary);
+    border-image-slice: 1;
+  }
+  input,textarea{
+    &:required,&:invalid { box-shadow:none; }
+  }
+  button,a {
+    padding: 0.5rem;
+    margin: 0.25rem;
+    align-self: end;
+    border-radius: 5px;
+    color: white;
+    background-color: purple;
+    outline: none;
+    border: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.title-2{
+  font-size: 1.6rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0 4rem 0 .5rem;
+  color: $primary;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+#estimated-cost{
+  color: $secondary-hover;
+  font-weight: bold;
+  letter-spacing: .5px;
+  font-size: 1.1rem;
+}
+
+.track-form{
+  background-color: white;
+  width: 500px;
+}
+
+div#why_choose_us, div#track_your_item {
+  max-width: 1200px;
+  margin: auto;
 }

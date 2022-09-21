@@ -1,0 +1,27 @@
+<div class="profile-tab-basic-info">
+    <table class="table">
+        <tbody>
+            {% if orders %}
+            <tr>
+                <th scope="row" style="width: 1rem">S.N.</th>
+                <th scope="row">Tracking Number</th>
+                <th scope="row">Status</th>
+                <th scope="row">Address</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ order.tracking_number }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.address }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <th scope="row" style="width: 1rem">Orders</th>
+                <td>No orders yet.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>

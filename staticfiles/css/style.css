@@ -798,4 +798,89 @@ tr {
   font-weight: bold;
   cursor: pointer; }
 
+#form p {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px; }
+
+#form label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #9b9b9b; }
+
+#form input, #form textarea {
+  margin-top: .5rem;
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  color: #4d4d4d;
+  padding: 7px 0;
+  background: #ededed;
+  transition: border-color 0.2s;
+  border-radius: 7px 0; }
+  #form input::placeholder, #form textarea::placeholder {
+    color: transparent; }
+  #form input:placeholder-shown ~ .form__label, #form textarea:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px; }
+
+#form input:focus, #form textarea:focus {
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #800080, #666666);
+  border-image-slice: 1; }
+  #form input:focus ~ .form__label, #form textarea:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #800080;
+    font-weight: 700; }
+
+#form input:required, #form input:invalid, #form textarea:required, #form textarea:invalid {
+  box-shadow: none; }
+
+#form button, #form a {
+  padding: 0.5rem;
+  margin: 0.25rem;
+  align-self: end;
+  border-radius: 5px;
+  color: white;
+  background-color: purple;
+  outline: none;
+  border: none; }
+  #form button:hover, #form a:hover {
+    cursor: pointer; }
+
+.title-2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0 4rem 0 .5rem;
+  color: #800080;
+  text-align: center;
+  margin-bottom: 1.5rem; }
+
+#estimated-cost {
+  color: #4d4d4d;
+  font-weight: bold;
+  letter-spacing: .5px;
+  font-size: 1.1rem; }
+
+.track-form {
+  background-color: white;
+  width: 500px; }
+
+div#why_choose_us, div#track_your_item {
+  max-width: 1200px;
+  margin: auto; }
+
 /*# sourceMappingURL=style.css.map */

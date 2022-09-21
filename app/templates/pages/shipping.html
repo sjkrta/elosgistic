@@ -5,15 +5,13 @@
 {% block outlet %}
 
 <div class="container bg-white p-lg-5 mt-5">
-    <h2 class="text-center text-secondary">Welcome to Shipping Service</h2>
-    <p class="text-center">To ship your package, you are first supposed to fill up the given form and proceed checkout</p>
-    <div class="shadow p-3 mb-5 bg-white rounded">
-        <form class="container p-3 bg-white" method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit"  class="btn btn-secondary btn-lg btn-block mt-4">Submit Your Order</button>
-        </form> 
-    </div>
+    <h1 class="title-2" >Welcome to Shipping Service</h1>
+    <p class="text-center" style="color:#9b9b9b">To ship your package, you are first supposed to fill up the given form and proceed checkout</p>
+    <form id="form" class="container p-3 bg-white" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Your Order</button>
+    </form> 
 </div>
 
 {% endblock outlet %}

@@ -1,3 +1,4 @@
+{% load static %}
 <div id="#"></div>
 <nav id="navbar" class="navbar-expand-md sticky-top">
     <div class="flex-space-between">
@@ -35,7 +36,7 @@
                    {% if request.user.is_authenticated %}
                    <img src="{{ request.user.image.url }}" alt="{{ request.user.username }}"/>
                    {% else %}
-                   <img src="{{ defaultProfileImage }}" alt="AnonymousUser"/>
+                   <img src="{% static 'images/users/profile_pic.jpg' %}" alt="AnonymousUser"/>
                    {% endif %}
                     <span class="nav-greet-user">
                         {% if request.user.is_authenticated %}

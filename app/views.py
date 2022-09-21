@@ -179,18 +179,25 @@ def reset_view(request):
     return render(request, 'pages/accounts/reset.html', context)
 
 def cost_calculator_view(request):
-    total = ''
+    cost_result = ''
     values = []
     try:
         if request.method == "POST":
             distance = eval(request.POST.get("distance"))
-            weight =eval(request.POST.get("weight")) 
-            total = distance * weight * 5 
-            values = [request.POST.get("pick"),request.POST.get("delivery"),request.POST.get("medium"), distance, weight, total]
+            weight =eval(request.POST.get("weight"))
+            if weight < 0 or weight == 0:
+                cost_result = "Weight should be at least greater than 0"
+            elif distance < 0:
+                cost_result = "Distance cannot be a negative number."
+            elif distance == 0:
+                cost_result = f'You have selected pick up method. Estimate cost is ${weight * 1 * .5}'
+            else:
+                cost_result = f'Estimate cost is ${distance * weight * .5}'
+            values = [request.POST.get("pick"),request.POST.get("delivery"),request.POST.get("medium"), weight, distance]
     except:
-        total= "invalid"
+        cost_result= "Fill in all the data first."
     print(values)
-    return render(request, 'pages/cost_calculator.html', { 'values' : values})
+    return render(request, 'pages/cost_calculator.html', { 'values' : values, 'cost_result': cost_result})
 
 def categories_view(request):
     context = {}
@@ -198,6 +205,7 @@ def categories_view(request):
 
 def tracking(request):
     msg = None
+    tracking_number = ''
     if request.method == "POST":
         tracking_number = request.POST['tracking-number']
         if tracking_number == '':
@@ -208,7 +216,7 @@ def tracking(request):
                 msg = tracked_item.status
             else:
                 msg = "This tracking is either invalid or not yet added to the system."
-    return render(request, 'pages/tracking.html', {'msg': msg})
+    return render(request, 'pages/tracking.html', {'msg': msg,'tracking_number':tracking_number})
 
 def shipping(request):
     form = ShippingDetailsForm()
@@ -434,6 +442,7 @@ def checkout_view(request):
 
 
 def profile_view(request, username):
+    orders = TrackingNumber.objects.filter(user=request.user)
     sidebar = [{"name": "Basic Info", "id":"basic-info","template": "includes/profileTabBasicInfo.html"},
                {"name": "Your Orders", "id":"your-orders", "template": "includes/profileTabYourOrders.html"},
                {"name": "Address Detail", "id":"address-detail", "template": "includes/profileTabAddressDetail.html"},
@@ -441,6 +450,7 @@ def profile_view(request, username):
     context = {
         "sidebar": sidebar,
         "activeSidebar": sidebar[0],
-        "addressDetail": Address.objects.get(user_id = request.user)
+        "addressDetail": Address.objects.filter(user_id = request.user).first(),
+        "orders":orders
     }
     return render(request, 'pages/accounts/profile.html', context)

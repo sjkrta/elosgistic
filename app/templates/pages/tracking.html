@@ -3,23 +3,19 @@
 {% include "includes/navbar.html" %}
 {% include "includes/navbarSearchModal.html" %}
 {% block outlet %}
-<div class="container-fluid d-flex" style="object-fit:center; background-size:cover; min-height: 100vh; background-image: url(https://images.unsplash.com/photo-1578575437130-527eed3abbec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80);">
-    {% if request.user.is_authenticated %}
-        <form method="post" style="margin:auto;" class="d-flex flex-wrap flex-column">
+<div id="track_your_item" class="container-fluid d-flex" style="object-fit:center; background-size:cover; min-height: 100vh; background-image: url(https://cdn.pixabay.com/photo/2022/05/27/20/17/parcel-7225976_960_720.jpg);">
+        <form method="post" id="form" style="margin:auto;" class="track-form p-3">
             {% csrf_token %}
-            <input type="text" class="form-control" name="tracking-number" id="tracking-number" placeholder="Enter tracking number">
-            </br>
-            <button type="submit" class="btn btn-lg btn-warning" style="width:300px; margin:auto">Track Your Order</button>
-            </br>
+            <span class="title-2 text-left">Track your item</span>
+            <p class="text-left px-2" style="color:#9b9b9b">Enter your tracking number to track the item.</p>
+            <input value="{{tracking_number}}" type="text" name="tracking-number" id="tracking-number" placeholder="Enter tracking number">
+            <button class="mt-4" type="submit">Track Your Order</button>
             {% if msg %}
-            <div class="alert alert-primary" role="alert">
+            <div class="alert alert-primary mt-4" role="alert">
                 {{msg}}
             </div>
             {% endif %}
         </form>
-    {% else %}
-        <a type="button" href={% url 'register' %} class="btn btn-lg btn-warning" style="width:300px; margin:auto">Sign Up First</a>
-    {% endif %}
 </div>
 {% endblock outlet %}
 {% include "includes/footer.html" %}

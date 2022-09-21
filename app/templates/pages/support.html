@@ -5,13 +5,13 @@
 {% block outlet %}
 
 <div class="container bg-white p-lg-5 mt-5">
-    <h2 class="text-center text-secondary">Customer Support</h2>
-    <p class="text-center">We are here to address your issues and queries. Feel free to message.</p>
+    <h2 class="title-2">Customer Support</h2>
+    <p class="text-center" style="color:#9b9b9b">We are here to address your issues and queries. Feel free to message us.</p>
     <div class="shadow p-3 mb-5 bg-white rounded">
-        <form class="container p-3 bg-white" method="POST">
+        <form id="form" class="container p-3 bg-white" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit"  class="btn btn-secondary btn-lg btn-block mt-4">Submit Your Order</button>
+            <button type="submit">Send Message</button>
         </form> 
     </div>
 </div>
