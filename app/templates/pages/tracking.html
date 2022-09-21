@@ -3,6 +3,8 @@
 {% include "includes/navbar.html" %}
 {% include "includes/navbarSearchModal.html" %}
 {% block outlet %}
+<br/>
+<br/>
 <div id="track_your_item" class="container-fluid d-flex" style="object-fit:center; background-size:cover; min-height: 100vh; background-image: url(https://cdn.pixabay.com/photo/2022/05/27/20/17/parcel-7225976_960_720.jpg);">
         <form method="post" id="form" style="margin:auto;" class="track-form p-3">
             {% csrf_token %}

@@ -178,13 +178,14 @@ def reset_view(request):
     context = {}
     return render(request, 'pages/accounts/reset.html', context)
 
+
 def cost_calculator_view(request):
     cost_result = ''
     values = []
     try:
         if request.method == "POST":
             distance = eval(request.POST.get("distance"))
-            weight =eval(request.POST.get("weight"))
+            weight = eval(request.POST.get("weight"))
             if weight < 0 or weight == 0:
                 cost_result = "Weight should be at least greater than 0"
             elif distance < 0:
@@ -193,15 +194,22 @@ def cost_calculator_view(request):
                 cost_result = f'You have selected pick up method. Estimate cost is ${weight * 1 * .5}'
             else:
                 cost_result = f'Estimate cost is ${distance * weight * .5}'
-            values = [request.POST.get("pick"),request.POST.get("delivery"),request.POST.get("medium"), weight, distance]
+            values = [request.POST.get("pick"), request.POST.get(
+                "delivery"), request.POST.get("medium"), weight, distance]
     except:
-        cost_result= "Fill in all the data first."
+        cost_result = "Fill in all the data first."
     print(values)
-    return render(request, 'pages/cost_calculator.html', { 'values' : values, 'cost_result': cost_result})
+    return render(request, 'pages/cost_calculator.html', {
+        'values': values,
+        'cost_result': cost_result,
+        'cost_calculator_active': True,
+    })
+
 
 def categories_view(request):
     context = {}
     return render(request, 'pages/products/categories.html', context)
+
 
 def tracking(request):
     msg = None
@@ -211,12 +219,18 @@ def tracking(request):
         if tracking_number == '':
             msg = "Please enter your tracking number first."
         else:
-            tracked_item = TrackingNumber.objects.filter(tracking_number = tracking_number).first()
+            tracked_item = TrackingNumber.objects.filter(
+                tracking_number=tracking_number).first()
             if tracked_item:
                 msg = tracked_item.status
             else:
                 msg = "This tracking is either invalid or not yet added to the system."
-    return render(request, 'pages/tracking.html', {'msg': msg,'tracking_number':tracking_number})
+    return render(request, 'pages/tracking.html', {
+        'msg': msg,
+        'tracking_number': tracking_number,
+        'tracking_active': True,
+    })
+
 
 def shipping(request):
     form = ShippingDetailsForm()
@@ -228,14 +242,20 @@ def shipping(request):
         else:
             print('Something went wrong')
     return render(request, 'pages/shipping.html', {
-        'form':form
+        'form': form,
+        'shipping_active': True,
     })
+
 
 def thankyou(request):
     return render(request, "pages/thankyou.html")
 
+
 def aboutus(request):
-    return render(request, "pages/aboutus.html")
+    return render(request, "pages/aboutus.html", {
+        'aboutus_active': True,
+    })
+
 
 def support(request):
     form = SupportQueryForm()
@@ -246,10 +266,15 @@ def support(request):
             return redirect("/support/thankyou")
         else:
             print('Something went wrong')
-    return render(request, "pages/support.html",{'form':form})
+    return render(request, "pages/support.html", {
+        'form': form,
+        'support_active': True,
+    })
+
 
 def thankyouSupport(request):
     return render(request, "pages/support_thankyou.html")
+
 
 def category_view(request, category):
     context = {}
@@ -323,11 +348,6 @@ def sales_view(request):
     return render(request, 'pages/products/sales.html', context)
 
 
-
-
-
-
-
 # cartview------------------------------------------------------------------------------------------------------
 def cart_view(request):
     orders = []
@@ -367,21 +387,23 @@ def cart_view(request):
                                "price": i.price, "stock": i.product_id.stock, "quantity": i.quantity})
         except:
             # if doesn't exists return empty list
-            orders=[]
+            orders = []
     # if delivery choice is submitted
     if 'button_delivery_choice' in request.POST:
-        delivery_choice = request.POST['select_delivery_choice'] 
-        Order.objects.filter(user_id = request.user, paid_status=False).update(delivery_choice=delivery_choice)
+        delivery_choice = request.POST['select_delivery_choice']
+        Order.objects.filter(user_id=request.user, paid_status=False).update(
+            delivery_choice=delivery_choice)
     # if coupon is applied
     elif 'button_coupon' in request.POST:
         input_coupon = request.POST['input_coupon']
         try:
-            coupon = Coupon.objects.get(coupon = input_coupon)
+            coupon = Coupon.objects.get(coupon=input_coupon)
             if coupon.expired == True:
                 couponError = "This coupon code is expired."
                 couponSuccess = ""
             else:
-                Order.objects.filter(user_id = request.user, paid_status=False).update(coupon = coupon)
+                Order.objects.filter(user_id=request.user,
+                                     paid_status=False).update(coupon=coupon)
                 coupon_discount_num = coupon.discount
                 couponError = ""
                 couponSuccess = "Coupon applied successfully"
@@ -407,7 +429,7 @@ def cart_view(request):
             total_price = total_price + i.quantity*i.price
             items_discount = items - total_price
 
-        coupon_discount = round(coupon_discount_num*0.01*float(total_price),2)
+        coupon_discount = round(coupon_discount_num*0.01*float(total_price), 2)
         # checking delivery choice
         if Order.objects.get(user_id=request.user, paid_status=False).delivery_choice == 'D':
             if total_price < 500:
@@ -416,22 +438,22 @@ def cart_view(request):
                 delivery = 5.99
             else:
                 delivery = 0
-        total_price = round(float(items - items_discount) - coupon_discount + delivery,2)
+        total_price = round(float(items - items_discount) -
+                            coupon_discount + delivery, 2)
     except:
-        print({"error":"order doesn't exist"})
-    
-    
+        print({"error": "order doesn't exist"})
+
     context = {
         "promocode": "SALES2022",
         "orders": orders,
         "delivery_choice": delivery_choice,
         "couponError": couponError,
-        "couponSuccess":couponSuccess,
-        "items":items,
-        "delivery":delivery,
-        "items_discount":items_discount,
-        "coupon_discount":coupon_discount,
-        'total_price':total_price,
+        "couponSuccess": couponSuccess,
+        "items": items,
+        "delivery": delivery,
+        "items_discount": items_discount,
+        "coupon_discount": coupon_discount,
+        'total_price': total_price,
     }
     return render(request, 'pages/shopping/cart.html', context)
 
@@ -443,14 +465,16 @@ def checkout_view(request):
 
 def profile_view(request, username):
     orders = TrackingNumber.objects.filter(user=request.user)
-    sidebar = [{"name": "Basic Info", "id":"basic-info","template": "includes/profileTabBasicInfo.html"},
-               {"name": "Your Orders", "id":"your-orders", "template": "includes/profileTabYourOrders.html"},
-               {"name": "Address Detail", "id":"address-detail", "template": "includes/profileTabAddressDetail.html"},
-               {"name": "Login & Security", "id":"login-and-security", "template": "includes/profileTabLoginSecurity.html"}]
+    sidebar = [{"name": "Basic Info", "id": "basic-info", "template": "includes/profileTabBasicInfo.html"},
+               {"name": "Your Orders", "id": "your-orders",
+                   "template": "includes/profileTabYourOrders.html"},
+               {"name": "Address Detail", "id": "address-detail",
+                   "template": "includes/profileTabAddressDetail.html"},
+               {"name": "Login & Security", "id": "login-and-security", "template": "includes/profileTabLoginSecurity.html"}]
     context = {
         "sidebar": sidebar,
         "activeSidebar": sidebar[0],
-        "addressDetail": Address.objects.filter(user_id = request.user).first(),
-        "orders":orders
+        "addressDetail": Address.objects.filter(user_id=request.user).first(),
+        "orders": orders
     }
     return render(request, 'pages/accounts/profile.html', context)

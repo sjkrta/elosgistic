@@ -1,5 +1,25 @@
-<a class="nav-links" href={% url 'shipping' %}>Shipping</a>
-<a class="nav-links" href={% url 'tracking' %}>Tracking</a>
-<a class="nav-links" href={% url 'support' %}>Support</a>
-<a class="nav-links" href={% url 'cost_calculator' %}>Cost Calculator</a>
-<a class="nav-links" href={% url 'aboutus' %}>About Us</a>
+<a
+  class="nav-links {% if shipping_active %}nav_active{% endif %} mx-1"
+  href="{% url 'shipping' %}"
+  >Shipping</a
+>
+<a
+  class="nav-links {% if tracking_active %}nav_active{% endif %} mx-1"
+  href="{% url 'tracking' %}"
+  >Tracking</a
+>
+<a
+  class="nav-links {% if support_active %}nav_active{% endif %} mx-1"
+  href="{% url 'support' %}"
+  >Support</a
+>
+<a
+  class="nav-links {% if cost_calculator_active %}nav_active{% endif %} mx-1"
+  href="{% url 'cost_calculator' %}"
+  >Cost Calculator</a
+>
+<a
+  class="nav-links {% if aboutus_active %}nav_active{% endif %} mx-1"
+  href="{% url 'aboutus' %}"
+  >About Us</a
+>
